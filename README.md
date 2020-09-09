@@ -1,24 +1,49 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column              | Type    | Options     |
+| ------------------- | ------- | ----------- |
+| nickname            | string  | null: false |
+| email               | string  | null: false |
+| password            | string  | null: false |
+| age                 | integer | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many : comics
+- has_many : reviews
+- has_many : buy
 
-* Configuration
 
-* Database creation
+## comics テーブル
 
-* Database initialization
+| Column                 | Type    | Options                         |
+| ---------------------- | ------- | ------------------------------- |
+| comic_name             | string  | null: false, unique: true       |
+| author                 | string  | null: false                     |
+| publisher              | string  | null: false                     |
+| story                  | text    |                                 |
+| status_id              | integer | null: false                     |
+| user_id                | integer | null: false , foreign_key: true |
 
-* How to run the test suite
+### Association
 
-* Services (job queues, cache servers, search engines, etc.)
+- belongs_to : users 
+- has_many   : reviews
 
-* Deployment instructions
 
-* ...
+
+## reviews テーブル
+
+| Column              | Type    | Options                         |
+| ------------------- | ------- | ------------------------------- |
+| rate                | float   | null: false                     |
+| content             | text    |                                 |
+| user_id             | integer | null: false , foreign_key: true |
+| items_id            | integer | null: false , foreign_key: true |
+
+### Association
+
+- belongs_to : users 
+- belongs_to : items
